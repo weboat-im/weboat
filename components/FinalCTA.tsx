@@ -1,18 +1,18 @@
+
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
-import { RESERVATION_LOGS } from '../constants';
+import { RESERVATION_LOGS } from '../constants.tsx';
 
 export const FinalCTA: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Vertical Rolling Animation Logic
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % RESERVATION_LOGS.length);
-    }, 2500); // Change text every 2.5 seconds
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
@@ -33,7 +33,6 @@ export const FinalCTA: React.FC = () => {
       
       if (response.ok) {
         setIsSuccess(true);
-        // Optional: Reset form or handle other logic
       } else {
         alert("제출 중 문제가 발생했습니다. 다시 시도해주세요.");
       }
@@ -45,59 +44,80 @@ export const FinalCTA: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="w-full py-24 bg-black text-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-lime-400 rounded-full blur-[120px] opacity-20 pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+    <section id="contact" className="w-full py-32 bg-black text-white relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-lime-400/10 via-transparent to-transparent opacity-50 pointer-events-none"></div>
       
-      <div className="max-w-3xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
-        <div className="inline-block px-4 py-1 border border-lime-400 rounded-full text-lime-400 text-sm font-bold mb-6 tracking-wide">
+      <div className="max-w-4xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="inline-block px-6 py-2 border border-lime-400/30 rounded-full text-lime-400 text-sm font-black mb-10 tracking-[0.2em] bg-lime-400/5"
+        >
           CONTACT US
-        </div>
-        <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+        </motion.div>
+        
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter"
+        >
           선거 캠프 세팅,<br />
-          <span className="text-lime-400">오늘 바로 끝내세요.</span>
+          <span className="text-lime-400">오늘 바로 시작하세요.</span>
         </h2>
-        <p className="text-gray-400 text-lg md:text-xl mb-12 max-w-xl">
-          기획부터 실행까지 하나의 홍보팀이 책임집니다. <br className="hidden md:block"/>
-          한 명을 채용하는 비용으로 베테랑 전문가 팀을 운용해보세요.
-        </p>
+        
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-gray-400 text-xl md:text-2xl mb-16 max-w-2xl leading-relaxed"
+        >
+          이미 수많은 후보들이 위보트의 화력을 선택했습니다.<br />
+          후보님의 지역구, 지금 바로 선점하세요.
+        </motion.p>
 
-        {/* Conditional Rendering: Form or Success Message */}
         {isSuccess ? (
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full bg-white/10 backdrop-blur-md border border-lime-400/50 p-10 rounded-3xl flex flex-col items-center justify-center text-center gap-6 mb-8 max-w-2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full bg-white/5 backdrop-blur-xl border border-lime-400/50 p-12 rounded-[3rem] flex flex-col items-center justify-center text-center gap-6 mb-12"
           >
-            <div className="w-20 h-20 bg-lime-400 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(212,255,0,0.3)]">
-              <Check className="w-10 h-10 text-black stroke-[3]" />
+            <div className="w-24 h-24 bg-lime-400 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(212,255,0,0.4)]">
+              <Check className="w-12 h-12 text-black stroke-[4]" />
             </div>
-            <div className="space-y-2">
-              <h3 className="text-2xl md:text-3xl font-bold text-white">신청해주셔서 감사합니다!</h3>
-              <p className="text-gray-300 text-lg">
-                담당자가 남겨주신 연락처로<br className="md:hidden" /> 빠르게 연락드리겠습니다.
+            <div className="space-y-3">
+              <h3 className="text-3xl font-bold text-white">신청이 접수되었습니다!</h3>
+              <p className="text-gray-400 text-xl">
+                24시간 이내에 담당 팀장이<br /> 직접 연락드리겠습니다.
               </p>
             </div>
           </motion.div>
         ) : (
-          <form 
+          <motion.form 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
             onSubmit={handleSubmit}
-            className="w-full bg-white/5 backdrop-blur-sm border border-white/10 p-2 rounded-2xl md:rounded-full flex flex-col md:flex-row gap-2 mb-8"
+            className="w-full bg-white/5 backdrop-blur-md border border-white/10 p-3 rounded-3xl md:rounded-full flex flex-col md:flex-row gap-3 mb-12 shadow-2xl"
           >
               <input 
                 type="text" 
                 name="name"
                 required
-                placeholder="성함" 
+                placeholder="성함 / 직함" 
                 disabled={isSubmitting}
-                className="bg-transparent text-white px-6 py-4 outline-none w-full md:w-1/4 placeholder-gray-500 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 disabled:opacity-50"
+                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/4 placeholder-gray-600 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 focus:placeholder-white transition-all"
               />
                <input 
                 type="text" 
                 name="region"
                 required
-                placeholder="출마 예정 지역" 
+                placeholder="출마 지역구" 
                 disabled={isSubmitting}
-                className="bg-transparent text-white px-6 py-4 outline-none w-full md:w-1/3 placeholder-gray-500 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 disabled:opacity-50"
+                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/3 placeholder-gray-600 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 focus:placeholder-white transition-all"
               />
                <input 
                 type="text" 
@@ -105,51 +125,50 @@ export const FinalCTA: React.FC = () => {
                 required
                 placeholder="연락처" 
                 disabled={isSubmitting}
-                className="bg-transparent text-white px-6 py-4 outline-none w-full md:w-1/3 placeholder-gray-500 text-center md:text-left disabled:opacity-50"
+                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/3 placeholder-gray-600 text-center md:text-left focus:placeholder-white transition-all"
               />
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="bg-lime-400 hover:bg-lime-300 text-black font-bold px-8 py-4 rounded-xl md:rounded-full whitespace-nowrap transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed min-w-[120px]"
+                className="bg-lime-400 hover:bg-white text-black font-black px-12 py-5 rounded-2xl md:rounded-full whitespace-nowrap transition-all flex items-center justify-center gap-3 disabled:opacity-50 min-w-[160px] text-lg active:scale-95 shadow-lg shadow-lime-400/20"
               >
                 {isSubmitting ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-6 h-6 animate-spin" />
                 ) : (
                   <>
-                    신청 <ArrowRight className="w-4 h-4" />
+                    확인 <ArrowRight className="w-5 h-5" />
                   </>
                 )}
               </button>
-          </form>
+          </motion.form>
         )}
 
-        {/* Vertical Rolling Animation (Ticker) */}
-        <div className="w-full max-w-lg mt-8 flex flex-col items-center">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="relative flex h-2 w-2">
+        <div className="w-full max-w-xl mt-4 flex flex-col items-center">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
             </span>
-            <span className="text-sm text-gray-500 font-medium">실시간 현황</span>
+            <span className="text-sm text-gray-400 font-bold tracking-widest uppercase">Live Activity</span>
           </div>
-          <div className="relative h-8 overflow-hidden w-full flex justify-center items-center bg-gray-900/50 rounded-lg border border-gray-800">
+          <div className="relative h-14 overflow-hidden w-full flex justify-center items-center bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 shadow-inner">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={currentIndex}
-                initial={{ y: 20, opacity: 0 }}
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="absolute w-full text-center"
+                exit={{ y: -30, opacity: 0 }}
+                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                className="absolute w-full text-center px-4"
               >
-                <span className="text-lime-400 font-medium text-sm md:text-base">
-                  {RESERVATION_LOGS[currentIndex]}
+                <span className="text-lime-400 font-bold text-lg md:text-xl italic">
+                  "{RESERVATION_LOGS[currentIndex]}"
                 </span>
               </motion.div>
             </AnimatePresence>
           </div>
-          <p className="text-xs text-gray-600 mt-3">
-            이미 당신의 경쟁자가 이 페이지를 보고 있을 수 있습니다.
+          <p className="text-sm text-gray-600 mt-6 font-medium">
+            ※ 이미 당신의 경쟁 후보자가 이 페이지를 검토하고 있을 수 있습니다.
           </p>
         </div>
 

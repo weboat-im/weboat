@@ -1,12 +1,13 @@
+
 import React from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Philosophy } from './components/Philosophy';
-import { Services } from './components/Services';
-import { Features } from './components/Features';
-import { FAQ } from './components/FAQ';
-import { FinalCTA } from './components/FinalCTA';
-import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar.tsx';
+import { Hero } from './components/Hero.tsx';
+import { Philosophy } from './components/Philosophy.tsx';
+import { Services } from './components/Services.tsx';
+import { Features } from './components/Features.tsx';
+import { FAQ } from './components/FAQ.tsx';
+import { FinalCTA } from './components/FinalCTA.tsx';
+import { Footer } from './components/Footer.tsx';
 
 const App: React.FC = () => {
   return (

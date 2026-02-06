@@ -1,43 +1,68 @@
+
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-white">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none select-none overflow-hidden text-[20vw] font-black leading-none break-all">
+        WEBOAT WEBOAT WEBOAT WEBOAT WEBOAT
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         
-        <div className="lg:col-span-8 flex flex-col gap-6 z-10">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9] text-black">
-            지금껏 없었던<br />
-            당신만의 홍보팀<br />
-            <span className="relative inline-block mt-2">
-              <span className="relative z-10">위보트</span>
-              <span className="absolute bottom-2 left-0 w-full h-4 md:h-8 bg-lime-400 -z-10"></span>
-            </span>
-          </h1>
+        <div className="lg:col-span-10 flex flex-col gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-black tracking-tighter leading-[0.85] text-black">
+              당신의 승리를<br />
+              설계하는 압도적 화력<br />
+              <span className="relative inline-block mt-4">
+                <span className="relative z-10 text-black">위보트</span>
+                <motion.span 
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 0.5, duration: 1, ease: "easeInOut" }}
+                  className="absolute bottom-2 left-0 h-6 md:h-12 bg-lime-400 -z-10"
+                ></motion.span>
+              </span>
+            </h1>
+          </motion.div>
           
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed font-medium mt-4 break-keep">
-            숏폼, 카드뉴스, SNS 운영부터 메시지 작성, 캠페인 기획, 후보자 브랜딩까지<br />
-            선거 승리에 필요한 모든 홍보 실무를 하나의 전문 팀이 전담합니다.
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="text-xl md:text-2xl text-gray-700 max-w-3xl leading-relaxed font-medium break-keep"
+          >
+            숏폼, SNS, 메시지 전략부터 후보자 브랜딩까지.<br />
+            수많은 선거를 승리로 이끈 베테랑들이 후보님의 캠프에 '전담 홍보팀'으로 합류합니다.
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <a href="#contact" className="px-8 py-4 bg-black text-white rounded-full text-lg font-bold hover:bg-lime-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group">
-              무료 상담 신청하기
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="flex flex-col sm:flex-row gap-5 mt-4"
+          >
+            <a href="#contact" className="px-10 py-5 bg-black text-white rounded-full text-xl font-bold hover:bg-lime-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl">
+              무료 상담 및 슬롯 확인
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </a>
             <a 
               href="https://tally.so/r/Gxpyl2" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-8 py-4 border-2 border-black text-black rounded-full text-lg font-bold hover:bg-gray-50 transition-all duration-300 flex items-center justify-center"
+              className="px-10 py-5 border-2 border-black text-black rounded-full text-xl font-bold hover:bg-black hover:text-white transition-all duration-300 flex items-center justify-center"
             >
-              홍보 실무 무료 키트 받기
+              홍보 실무 가이드 받기
             </a>
-          </div>
+          </motion.div>
         </div>
-
-        {/* Logo removed as per request */}
       </div>
     </section>
   );

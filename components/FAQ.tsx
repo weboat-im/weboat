@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
-import { FAQ_ITEMS } from '../constants';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FAQ_ITEMS } from '../constants.tsx';
 
 export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -10,41 +12,54 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="w-full py-24 bg-white">
+    <section id="faq" className="w-full py-32 bg-gray-50">
       <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-4xl font-black mb-12 tracking-tighter">FAQ</h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl font-black mb-4 tracking-tighter">궁금한 점이 있으신가요?</h2>
+          <p className="text-gray-500 text-lg">가장 많이 묻는 질문들을 모았습니다.</p>
+        </motion.div>
         
         <div className="space-y-4">
           {FAQ_ITEMS.map((item, index) => (
             <div 
               key={index} 
-              className="border-b border-gray-200 pb-4"
+              className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm"
             >
               <button 
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between py-4 text-left group"
+                className="w-full flex items-center justify-between p-6 text-left group transition-colors hover:bg-gray-50"
               >
-                <span className="text-lg md:text-xl font-bold group-hover:text-lime-600 transition-colors">
+                <span className="text-xl font-bold group-hover:text-black transition-colors">
                   {item.question}
                 </span>
-                <span className="ml-4">
+                <span className={`p-2 rounded-full transition-colors ${openIndex === index ? 'bg-lime-400 text-black' : 'bg-gray-100 text-gray-400'}`}>
                   {openIndex === index ? (
-                    <Minus className="w-6 h-6 text-lime-600" />
+                    <Minus className="w-5 h-5" />
                   ) : (
-                    <Plus className="w-6 h-6 text-gray-400 group-hover:text-black" />
+                    <Plus className="w-5 h-5" />
                   )}
                 </span>
               </button>
               
-              <div 
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === index ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-                  {item.answer}
-                </p>
-              </div>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div 
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="px-6 pb-8 text-gray-600 leading-relaxed text-lg border-t border-gray-50 pt-4">
+                      {item.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
