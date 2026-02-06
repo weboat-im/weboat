@@ -13,10 +13,10 @@ export const Services: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-black mb-6 tracking-tighter leading-tight break-keep"
+            className="text-4xl md:text-6xl font-black mb-6 tracking-tighter leading-tight break-keep"
           >
-            전문성을 경험하세요,<br /> 
-            <span className="text-gray-400">캠프 상황에 최적화된 파트너십</span>
+            전략적 홍보 파트너,<br /> 
+            <span className="text-gray-400">캠프에 맞게 선택하세요</span>
           </motion.h2>
         </div>
 
@@ -36,7 +36,7 @@ export const Services: React.FC = () => {
               `}
             >
               <div className="flex-1">
-                <h3 className={`text-3xl font-bold mb-6 whitespace-pre-line leading-tight ${item.isHighlight ? 'text-lime-400' : 'text-black'}`}>
+                <h3 className={`text-2xl font-bold mb-6 whitespace-pre-line leading-tight ${item.isHighlight ? 'text-lime-400' : 'text-black'}`}>
                   {item.title}
                 </h3>
                 <p className={`text-lg mb-10 leading-relaxed break-keep ${item.isHighlight ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -47,7 +47,7 @@ export const Services: React.FC = () => {
                   <ul className="space-y-4 mb-10">
                     {item.features.map((feat, fIndex) => (
                       <li key={fIndex} className="flex items-start gap-4 text-base font-medium">
-                        <Check className={`w-6 h-6 flex-shrink-0 ${item.isHighlight ? 'text-lime-400' : 'text-black'}`} />
+                        <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${item.isHighlight ? 'text-lime-400' : 'text-black'}`} />
                         <span className={item.isHighlight ? 'text-white' : 'text-black'}>
                           {feat}
                         </span>
@@ -59,7 +59,12 @@ export const Services: React.FC = () => {
 
               {item.isHighlight && (
                 <div className="mt-8">
-                  <a href="#contact" className="flex items-center justify-between w-full p-5 bg-lime-400 rounded-2xl text-black font-bold text-lg hover:scale-[1.02] transition-transform">
+                  <a 
+                    href="http://pf.kakao.com/_xfQeRX/chat" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between w-full p-5 bg-lime-400 rounded-2xl text-black font-bold text-lg hover:scale-[1.02] transition-transform"
+                  >
                     실시간 상담 연결
                     <ArrowRight className="w-6 h-6" />
                   </a>

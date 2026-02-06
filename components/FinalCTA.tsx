@@ -11,7 +11,14 @@ export const FinalCTA: React.FC = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % RESERVATION_LOGS.length);
+      setCurrentIndex((prev) => {
+        let nextIndex = Math.floor(Math.random() * RESERVATION_LOGS.length);
+        // 같은 텍스트가 연속으로 나오지 않도록 처리
+        while (nextIndex === prev && RESERVATION_LOGS.length > 1) {
+          nextIndex = Math.floor(Math.random() * RESERVATION_LOGS.length);
+        }
+        return nextIndex;
+      });
     }, 3000);
     return () => clearInterval(timer);
   }, []);
@@ -61,21 +68,21 @@ export const FinalCTA: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter"
+          className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter break-keep"
         >
           선거 캠프 세팅,<br />
           <span className="text-lime-400">오늘 바로 시작하세요.</span>
-        </h2>
+        </motion.h2>
         
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400 text-xl md:text-2xl mb-16 max-w-2xl leading-relaxed"
+          className="text-gray-400 text-xl md:text-2xl mb-16 max-w-2xl leading-relaxed break-keep mx-auto"
         >
-          이미 수많은 후보들이 위보트의 화력을 선택했습니다.<br />
-          후보님의 지역구, 지금 바로 선점하세요.
+          기획부터 실행까지 하나의 홍보팀이 책임집니다.<br />
+          한 명을 채용하는 비용으로 베테랑 전문가 팀을 선거 기간 동안 운용해보세요.
         </motion.p>
 
         {isSuccess ? (
@@ -90,7 +97,7 @@ export const FinalCTA: React.FC = () => {
             <div className="space-y-3">
               <h3 className="text-3xl font-bold text-white">신청이 접수되었습니다!</h3>
               <p className="text-gray-400 text-xl">
-                24시간 이내에 담당 팀장이<br /> 직접 연락드리겠습니다.
+                24시간 이내에 담당자가<br /> 직접 연락드리겠습니다.
               </p>
             </div>
           </motion.div>
@@ -109,7 +116,7 @@ export const FinalCTA: React.FC = () => {
                 required
                 placeholder="성함 / 직함" 
                 disabled={isSubmitting}
-                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/4 placeholder-gray-600 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 focus:placeholder-white transition-all"
+                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/4 placeholder-gray-600 text-center border-b md:border-b-0 md:border-r border-white/10 focus:placeholder-white transition-all"
               />
                <input 
                 type="text" 
@@ -117,7 +124,7 @@ export const FinalCTA: React.FC = () => {
                 required
                 placeholder="출마 지역구" 
                 disabled={isSubmitting}
-                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/3 placeholder-gray-600 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 focus:placeholder-white transition-all"
+                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/3 placeholder-gray-600 text-center border-b md:border-b-0 md:border-r border-white/10 focus:placeholder-white transition-all"
               />
                <input 
                 type="text" 
@@ -125,7 +132,7 @@ export const FinalCTA: React.FC = () => {
                 required
                 placeholder="연락처" 
                 disabled={isSubmitting}
-                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/3 placeholder-gray-600 text-center md:text-left focus:placeholder-white transition-all"
+                className="bg-transparent text-white px-8 py-5 outline-none w-full md:w-1/3 placeholder-gray-600 text-center focus:placeholder-white transition-all"
               />
               <button 
                 type="submit" 
@@ -159,9 +166,9 @@ export const FinalCTA: React.FC = () => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -30, opacity: 0 }}
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                className="absolute w-full text-center px-4"
+                className="absolute w-full text-center px-4 flex justify-center"
               >
-                <span className="text-lime-400 font-bold text-lg md:text-xl italic">
+                <span className="text-lime-400 font-normal text-base md:text-lg whitespace-nowrap">
                   "{RESERVATION_LOGS[currentIndex]}"
                 </span>
               </motion.div>

@@ -13,6 +13,8 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const KAKAO_CHAT_URL = "http://pf.kakao.com/_xfQeRX/chat";
+
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md border-b border-gray-100 py-3' : 'bg-transparent py-5'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -24,7 +26,9 @@ export const Navbar: React.FC = () => {
           <a href="#services" className="hover:text-lime-600 transition-colors">Services</a>
           <a href="#faq" className="hover:text-lime-600 transition-colors">FAQ</a>
           <a 
-            href="#contact" 
+            href={KAKAO_CHAT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-5 py-2.5 bg-black text-white rounded-full hover:bg-lime-400 hover:text-black transition-all duration-300 font-bold"
           >
             상담 바로가기
@@ -41,7 +45,15 @@ export const Navbar: React.FC = () => {
         <div className="absolute top-full left-0 w-full bg-white border-b border-gray-100 p-6 flex flex-col gap-4 md:hidden">
           <a href="#services" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
           <a href="#faq" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>FAQ</a>
-          <a href="#contact" className="text-lg font-bold text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>상담 신청하기</a>
+          <a 
+            href={KAKAO_CHAT_URL} 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-lg font-bold text-lime-600" 
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            상담 바로가기
+          </a>
         </div>
       )}
     </nav>
